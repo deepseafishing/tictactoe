@@ -2,40 +2,57 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>The War of Sword and Shield</Text>
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currPlayer: 1,
+      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    };
+  }
 
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity
-          style={[styles.cell, { borderLeftWidth: 0, borderTopWidth: 0 }]}
-        >
-          <Icon name="shield" style={styles.shield} />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.cell, { borderTopWidth: 0 }]}>
-          <Icon name="sword" style={styles.sword} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.cell, { borderRightWidth: 0, borderTopWidth: 0 }]}
-        />
+  initialize = () => {
+    this.setState({
+      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+      currPlayer: 1
+    });
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>The War of Sword and Shield</Text>
+
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            style={[styles.cell, { borderLeftWidth: 0, borderTopWidth: 0 }]}
+          >
+            <Icon name="shield" style={styles.shield} />
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.cell, { borderTopWidth: 0 }]}>
+            <Icon name="sword" style={styles.sword} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.cell, { borderRightWidth: 0, borderTopWidth: 0 }]}
+          />
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity style={[styles.cell, { borderLeftWidth: 0 }]} />
+          <TouchableOpacity style={styles.cell} />
+          <TouchableOpacity style={[styles.cell, { borderRightWidth: 0 }]} />
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            style={[styles.cell, { borderLeftWidth: 0, borderBottomWidth: 0 }]}
+          />
+          <TouchableOpacity style={[styles.cell, { borderBottomWidth: 0 }]} />
+          <TouchableOpacity
+            style={[styles.cell, { borderRightWidth: 0, borderBottomWidth: 0 }]}
+          />
+        </View>
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity style={[styles.cell, { borderLeftWidth: 0 }]} />
-        <TouchableOpacity style={styles.cell} />
-        <TouchableOpacity style={[styles.cell, { borderRightWidth: 0 }]} />
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity
-          style={[styles.cell, { borderLeftWidth: 0, borderBottomWidth: 0 }]}
-        />
-        <TouchableOpacity style={[styles.cell, { borderBottomWidth: 0 }]} />
-        <TouchableOpacity
-          style={[styles.cell, { borderRightWidth: 0, borderBottomWidth: 0 }]}
-        />
-      </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
