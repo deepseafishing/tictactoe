@@ -69,9 +69,11 @@ export default class App extends React.Component {
       newDiag === val * 3 ||
       newAntiDiag === 3
     )
-      return Alert.alert(`Player ${this.state.currPlayer} is the winner!`, '', [
-        { text: 'OK', onPress: () => this.initializeGame() }
-      ]);
+      return Alert.alert(
+        `${this.state.currPlayer === 1 ? 'Shield' : 'Sword'} is the winner!`,
+        '',
+        [{ text: 'OK', onPress: () => this.initializeGame() }]
+      );
     else return 0;
   };
 
