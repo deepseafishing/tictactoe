@@ -1,24 +1,21 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-  Button
-} from 'react-native';
+import { StyleSheet, Text, View, Alert, Button } from 'react-native';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
+import GameBoard from './gameBoard';
+const LENGTH = 3;
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currPlayer: 1,
-      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+      board: Array(LENGTH)
+        .fill(0)
+        .map(el => Array(LENGTH).fill(0)),
       diagonal: 0,
       antiDiagonal: 0,
-      row: [0, 0, 0],
-      col: [0, 0, 0]
+      row: Array(LENGTH).fill(0),
+      col: Array(LENGTH).fill(0)
     };
   }
 
@@ -29,11 +26,13 @@ export default class App extends React.Component {
   initializeGame = () => {
     this.setState({
       currPlayer: 1,
-      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+      board: Array(LENGTH)
+        .fill(0)
+        .map(el => Array(LENGTH).fill(0)),
       diagonal: 0,
       antiDiagonal: 0,
-      row: [0, 0, 0],
-      col: [0, 0, 0]
+      row: Array(LENGTH).fill(0),
+      col: Array(LENGTH).fill(0)
     });
   };
 
@@ -64,10 +63,10 @@ export default class App extends React.Component {
       antiDiagonal: newAntiDiag
     });
     if (
-      newRow[row] === val * 3 ||
-      newCol[col] === val * 3 ||
-      newDiag === val * 3 ||
-      newAntiDiag === 3
+      newRow[row] === val * LENGTH ||
+      newCol[col] === val * LENGTH ||
+      newDiag === val * LENGTH ||
+      newAntiDiag === LENGTH
     )
       return Alert.alert(
         `${this.state.currPlayer === 1 ? 'Shield' : 'Sword'} is the winner!`,
@@ -92,77 +91,18 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>The War of{'\n'} Sword vs. Shield</Text>
-
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            disabled={this.state.board[0][0] ? true : false}
-            onPress={() => this.putIcon(0, 0)}
-            style={[styles.cell, { borderLeftWidth: 0, borderTopWidth: 0 }]}
-          >
-            {this.renderIcon(0, 0)}
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={this.state.board[0][1] ? true : false}
-            onPress={() => this.putIcon(0, 1)}
-            style={[styles.cell, { borderTopWidth: 0 }]}
-          >
-            {this.renderIcon(0, 1)}
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={this.state.board[0][2] ? true : false}
-            onPress={() => this.putIcon(0, 2)}
-            style={[styles.cell, { borderRightWidth: 0, borderTopWidth: 0 }]}
-          >
-            {this.renderIcon(0, 2)}
-          </TouchableOpacity>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            disabled={this.state.board[1][0] ? true : false}
-            onPress={() => this.putIcon(1, 0)}
-            style={[styles.cell, { borderLeftWidth: 0 }]}
-          >
-            {this.renderIcon(1, 0)}
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={this.state.board[1][1] ? true : false}
-            onPress={() => this.putIcon(1, 1)}
-            style={styles.cell}
-          >
-            {this.renderIcon(1, 1)}
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={this.state.board[1][2] ? true : false}
-            onPress={() => this.putIcon(1, 2)}
-            style={[styles.cell, { borderRightWidth: 0 }]}
-          >
-            {this.renderIcon(1, 2)}
-          </TouchableOpacity>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            disabled={this.state.board[2][0] ? true : false}
-            onPress={() => this.putIcon(2, 0)}
-            style={[styles.cell, { borderLeftWidth: 0, borderBottomWidth: 0 }]}
-          >
-            {this.renderIcon(2, 0)}
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={this.state.board[2][1] ? true : false}
-            onPress={() => this.putIcon(2, 1)}
-            style={[styles.cell, { borderBottomWidth: 0 }]}
-          >
-            {this.renderIcon(2, 1)}
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={this.state.board[2][2] ? true : false}
-            onPress={() => this.putIcon(2, 2)}
-            style={[styles.cell, { borderRightWidth: 0, borderBottomWidth: 0 }]}
-          >
-            {this.renderIcon(2, 2)}
-          </TouchableOpacity>
-        </View>
+        <GameBoard
+          length={LENGTH}
+          board={this.state.board}
+          putIcon={this.putIcon}
+          renderIcon={this.renderIcon}
+        />
         <View style={{ paddingTop: 50 }}>
+          <Text style={styles.title}>
+            It's {this.state.currPlayer === 1 ? 'Shield' : 'Sword'}'s turn!{' '}
+          </Text>
+        </View>
+        <View>
           <Button title="Start Again!" onPress={() => this.initializeGame()} />
         </View>
       </View>
@@ -177,23 +117,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  cell: {
-    color: 'black',
-    borderColor: '#82AAFF',
-    borderWidth: 3,
-    width: 130,
-    height: 130,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   shield: {
     color: '#C3E88D',
-    fontSize: 100,
+    fontSize: 80,
     alignItems: 'center'
   },
   sword: {
     color: '#FF5370',
-    fontSize: 100,
+    fontSize: 80,
     alignItems: 'center'
   },
   title: {
