@@ -7,7 +7,11 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       currPlayer: 1,
-      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+      diagonal: 0,
+      antiDiagonal: 0,
+      row: [0, 0, 0],
+      col: [0, 0, 0]
     };
   }
 
@@ -18,6 +22,29 @@ export default class App extends React.Component {
     });
   };
 
+  move = (row, col) => {
+    const val = this.state.currPlayer === 1 ? -1 : 1;
+    this.state.row[row] += val;
+    this.state.col[col] += col;
+    const newBoard = this.state.board.slice();
+    newBoard[row][col] = this.state.currPlayer;
+    this.setState({
+      board: newBoard
+    });
+    this.setState({ currPlayer: this.state.currPlayer === 1 ? 2 : 1 });
+  };
+
+  renderIcon = (row, col) => {
+    switch (this.state.board[row][col]) {
+      case 1:
+        return <Icon name="shield" style={styles.shield} />;
+      case 2:
+        return <Icon name="sword" style={styles.sword} />;
+      default:
+        <View />;
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -25,30 +52,72 @@ export default class App extends React.Component {
 
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
+            disabled={this.state.board[0][0] ? true : false}
+            onPress={() => this.move(0, 0)}
             style={[styles.cell, { borderLeftWidth: 0, borderTopWidth: 0 }]}
           >
-            <Icon name="shield" style={styles.shield} />
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.cell, { borderTopWidth: 0 }]}>
-            <Icon name="sword" style={styles.sword} />
+            {this.renderIcon(0, 0)}
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={this.state.board[0][1] ? true : false}
+            onPress={() => this.move(0, 1)}
+            style={[styles.cell, { borderTopWidth: 0 }]}
+          >
+            {this.renderIcon(0, 1)}
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={this.state.board[0][2] ? true : false}
+            onPress={() => this.move(0, 2)}
             style={[styles.cell, { borderRightWidth: 0, borderTopWidth: 0 }]}
-          />
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={[styles.cell, { borderLeftWidth: 0 }]} />
-          <TouchableOpacity style={styles.cell} />
-          <TouchableOpacity style={[styles.cell, { borderRightWidth: 0 }]} />
+          >
+            {this.renderIcon(0, 2)}
+          </TouchableOpacity>
         </View>
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
+            disabled={this.state.board[1][0] ? true : false}
+            onPress={() => this.move(1, 0)}
+            style={[styles.cell, { borderLeftWidth: 0 }]}
+          >
+            {this.renderIcon(1, 0)}
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={this.state.board[1][1] ? true : false}
+            onPress={() => this.move(1, 1)}
+            style={styles.cell}
+          >
+            {this.renderIcon(1, 1)}
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={this.state.board[1][2] ? true : false}
+            onPress={() => this.move(1, 2)}
+            style={[styles.cell, { borderRightWidth: 0 }]}
+          >
+            {this.renderIcon(1, 2)}
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            disabled={this.state.board[2][0] ? true : false}
+            onPress={() => this.move(2, 0)}
             style={[styles.cell, { borderLeftWidth: 0, borderBottomWidth: 0 }]}
-          />
-          <TouchableOpacity style={[styles.cell, { borderBottomWidth: 0 }]} />
+          >
+            {this.renderIcon(2, 0)}
+          </TouchableOpacity>
           <TouchableOpacity
+            disabled={this.state.board[2][1] ? true : false}
+            onPress={() => this.move(2, 1)}
+            style={[styles.cell, { borderBottomWidth: 0 }]}
+          >
+            {this.renderIcon(2, 1)}
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={this.state.board[2][2] ? true : false}
+            onPress={() => this.move(2, 2)}
             style={[styles.cell, { borderRightWidth: 0, borderBottomWidth: 0 }]}
-          />
+          >
+            {this.renderIcon(2, 2)}
+          </TouchableOpacity>
         </View>
       </View>
     );
