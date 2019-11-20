@@ -1,8 +1,6 @@
 # Simple Tic Tac Toe
 
-###Requirements
-
-The Game Should...
+###Features
 
 - Allow 2 players to play tic tac toe (Follow the rules of tic tac toe)
 - Have 3x3 grid on which the players can play
@@ -10,8 +8,6 @@ The Game Should...
 - Recognize when a player has won and declare that player as victorious
 - Allow the user to start a new game
 - As is often the case, the given specification is a little ambiguous in regards to some details about the game and the UI. Feel free to add constraints as you see fit in order to clarify the specification and limit the problem scope to something appropriate for your allotted time.
-
-Please make sure and document any assumptions and/or constraints you came up with while working through this challenge in a readme file within the codebase.
 
 ---
 
@@ -32,3 +28,5 @@ Please make sure and document any assumptions and/or constraints you came up wit
 
 - I have played Tic Tac Toe before and sometimes players might not know why they've won or lost. It's better if we provide the situation of the board when they actually win so that they would understand.
   I cleared the game board as a callback from alert button so that users can check the board situation when they win and press ok button of the alert to clear up the board.
+
+![alt text](Screen Shot 2019-11-19 at 5.27.33 PM.png)
