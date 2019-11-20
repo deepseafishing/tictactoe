@@ -29,4 +29,4 @@
 - I have played Tic Tac Toe before and sometimes players might not know why they've won or lost. It's better if we provide the situation of the board when they actually win so that they would understand.
   I cleared the game board as a callback from alert button so that users can check the board situation when they win and press ok button of the alert to clear up the board.
 
-![alt text](Screen Shot 2019-11-19 at 5.27.33 PM.png)
+![alt text](https://github.com/deepseafishing/tictactoe/blob/master/Screen%20Shot%202019-11-19%20at%205.27.33%20PM.png)
