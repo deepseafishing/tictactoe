@@ -18,7 +18,7 @@ Please make sure and document any assumptions and/or constraints you came up wit
 ###Assumptions
 
 - Tic Tac Toe is usually 3x3 but players might feel 3x3 is too easy and request for 5x5 grid in the future. Who knows?
-  So I created a stateless GameBoard react component that generates the UI for the game board. There is a LENGTH constant inside App.js file and it's set to 3 as a default. If you want to play 5x5, you can simply change that value to 5. You would need to adjust css style for the widths and heights of the icon size and board cell size when you change the LENGTH. I always try to make the code modular as possible so that it's easy to maintain and scalable.
+  So I created a stateless GameBoard react component that generates the UI for the game board. There is a LENGTH constant inside App.js file and it's set to 3 as a default. If you want to play 5x5, you can simply change that value to 5. You would need to adjust css style for the widths and heights of the icon size and board cell size when you change the LENGTH. I always try to make the code modular as possible so that it's easy to maintain and make it scalable.
 
 - **Checking if the current move is a winning move in the board in the checkWin method.**
   Again, if the board gets bigger than 3x3, it may be inefficient to check all rows and columns and diagonals to see if a player won. This is n^2 time complexity because they have to check all cells in the board. Instead, I used a 1D row array that keeps a sum of each row as an element, a 1D column array that keeps a sum of each column as an element, a diagonal variable that keeps the sum of diagonal values and antiDiagonal variable that keeps the sum of anti-diagonal values.
